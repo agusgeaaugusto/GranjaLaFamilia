@@ -109,3 +109,38 @@ function enviarMensaje(e){
   window.open(url, "_blank");
   return false;
 }
+
+  // 1) Evitar que el navegador restaure el scroll al recargar
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
+  // 2) Quitar el #hash de la URL (si quedó de un clic a "Productos", "Contacto", etc.)
+  window.addEventListener('DOMContentLoaded', () => {
+    if (location.hash) {
+      const urlSinHash = location.pathname + location.search;
+      history.replaceState(null, document.title, urlSinHash);
+    }
+
+    // 3) Forzar arriba al cargar
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+  });
+
+  // 4) Navegación suave a secciones sin dejar el #hash pegado
+  //    (opcional: hace scroll suave y NO ensucia la URL)
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const id = a.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if (el) {
+      e.preventDefault();
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // No ponemos location.hash = … para que al recargar no “salte”
+      history.replaceState(null, '', location.pathname + location.search);
+    }
+  });
+
+  // 5) Por si algún input tiene autofocus y te arrastra hacia abajo
+  document.querySelectorAll('[autofocus]').forEach(el => el.removeAttribute('autofocus'));
+
