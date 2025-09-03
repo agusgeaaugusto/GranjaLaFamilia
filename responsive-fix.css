@@ -1,0 +1,33 @@
+/* === Responsive Navbar & green mobile menu (stable) === */
+:root{ --nav-bg:#0e1116; --nav-text:#fff; --panel:#121820; --border:#1f2937; --brand:#22c55e; --brand-2:#16a34a; }
+
+/* Desktop base */
+.navbar{ background:var(--nav-bg); color:var(--nav-text); }
+.nav-container{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 16px; position:relative; }
+.nav-menu{ display:flex; gap:18px; list-style:none; margin:0; padding:0; }
+.nav-menu a{ color:var(--nav-text); text-decoration:none; padding:8px 12px; border-radius:10px; transition:transform .15s ease, background .15s ease; }
+.nav-menu a:hover{ background:rgba(255,255,255,.08); transform:translateY(-1px); }
+
+/* Mobile behavior + GREEN buttons inside dropdown */
+.nav-toggle{ display:none; background:none; border:1px solid var(--border); color:var(--nav-text); font-size:22px; padding:6px 10px; border-radius:10px; cursor:pointer }
+
+@media (max-width:768px){
+  .nav-toggle{ display:block; }
+  .nav-menu{
+    display:none; position:absolute; top:64px; left:10px; right:10px;
+    background:var(--panel); border:1px solid var(--border); border-radius:16px;
+    padding:14px; flex-direction:column; z-index:99999; box-shadow:0 10px 30px rgba(0,0,0,.35);
+  }
+  .nav-menu.show{ display:flex; }
+  .nav-menu a{
+    width:100%; text-align:center; font-weight:600;
+    background:linear-gradient(180deg, var(--brand), var(--brand-2));
+    color:#fff !important; border:1px solid rgba(0,0,0,.15);
+    padding:10px 14px; margin:4px 0; border-radius:14px;
+  }
+  .nav-menu a:hover{ transform:none; filter:brightness(1.02); }
+}
+
+/* WhatsApp float helper (if present) */
+.wafloat{ position:fixed; right:16px; bottom:16px; width:56px; height:56px; display:grid; place-items:center; border-radius:50%;
+  background:#25D366; color:#fff; font-size:28px; text-decoration:none; box-shadow:0 6px 20px rgba(0,0,0,.3); z-index:99999; }
