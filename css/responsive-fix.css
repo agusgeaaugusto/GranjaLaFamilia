@@ -1,0 +1,92 @@
+/* Base barra */
+
+.nav-container{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; padding:10px 16px; position:relative;
+}
+
+/* Desktop: menú en línea */
+.nav-menu{ display:flex; gap:14px; list-style:none; margin:0; padding:0; }
+.nav-menu li{ list-style:none; }
+.nav-menu a{ text-decoration:none; }
+
+/* Botón “hamburguesa” oculto en desktop */
+.nav-toggle{
+  display:none; background:none; border:1px solid #1f2937; color:#fff;
+  font-size:22px; padding:6px 10px; border-radius:10px; cursor:pointer;
+}
+
+/* Estilo verde de los botones */
+.btn.btn-primary{
+  display:block; font-weight:600; color:#fff;
+  background:linear-gradient(180deg,#22c55e,#a2ff20);
+  border:1px solid rgba(0,0,0,.15);
+  padding:10px 14px; border-radius:14px;
+}
+
+/* Móvil: menú desplegable apilado (sin panel oscuro) */
+@media (max-width:768px){
+  .nav-toggle{ display:block; }
+
+  .nav-menu{
+    display:none;
+    position:fixed;               /* no se corta y queda arriba de todo */
+    top:64px; left:12px; right:12px;
+    flex-direction:column; gap:8px;
+    z-index:10000;
+
+    /* Sin “cajón” detrás */
+    background:transparent; border:0; box-shadow:none; padding:0;
+
+    /* centrado y dentro de la pantalla */
+    max-width:420px; margin:0 auto;
+    max-height:calc(100vh - 96px); overflow:auto;
+  }
+
+  .nav-menu.show{ display:flex; }
+
+  .nav-menu a{ width:100%; text-align:center; margin:6px 0; }
+}
+
+/* (Opcional) ocultar el texto de marca */
+.brand{ display:none; }
+@media (max-width:768px){
+  .nav-toggle{ display:block; }
+
+  .nav-menu{
+    /* despliegue */
+    display:none;
+    position:fixed;
+    top:64px;
+    right:10px;          /* pegado al botón ☰ */
+    left:auto;
+
+    /* tamaño compacto */
+    width:min(260px, 86vw);
+    max-height:calc(100vh - 96px);
+    overflow:auto;
+    gap:6px;
+    z-index:10000;
+
+    /* sin "cajón" oscuro */
+    background:transparent;
+    border:0;
+    box-shadow:none;
+    padding:0;
+  }
+
+  .nav-menu.show{ display:flex; flex-direction:column; }
+
+  .nav-menu li{ list-style:none; }
+
+  .nav-menu a{
+    width:100%;
+    text-align:center;
+    margin:6px 0;
+
+    /* botones verdes más chicos */
+    padding:8px 12px;
+    font-size:0.95rem;
+    border-radius:12px;
+  }
+}
